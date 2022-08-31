@@ -47,7 +47,10 @@ Start the server
 ```bash
   nodemon index.js
 ```
-
+## To verfiy if your payment details is added to database
+```bash
+  https://coinspaze.herokuapp.com/
+```
 
 ## Functionalities which could be implemented if there was more time
 
