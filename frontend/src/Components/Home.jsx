@@ -15,13 +15,19 @@ import {
   ModalContent,
   ModalCloseButton,
   useDisclosure,
+  useToast
 } from "@chakra-ui/react";
 
 export const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+  const [success, setSuccess] = React.useState(false);
+  const [error,setError] = React.useState(false);
   return (
     <>
-      <Button onClick={onOpen}>Make Payment</Button>
+      <Flex minWidth='max-content' alignItems='center' justify="center" mt="10%">
+      <Button colorScheme='teal' onClick={onOpen}>Make Payment</Button>
+    </Flex>
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}  scrollBehavior="inside">
         <ModalOverlay />
         
@@ -37,6 +43,7 @@ export const Home = () => {
                   description: ""
                 }}
                 onSubmit={(values) => {
+
                   fetch("http://localhost:3001", {
                     method: "POST",
                     body: JSON.stringify(values),
@@ -46,13 +53,20 @@ export const Home = () => {
                   })
                   .then((res) => {
                     if(res.status == 200){
+                      setSuccess(true);
+                      setTimeout(()=> {
+                        window.location.reload();
+                      }, 4000)
                       res.json()
                     }
                     else if(res.status == 401){
                       window.location.reload();
                     }
-                    else{
-                      throw Error
+                    else if(res.status == 400){
+                      setError(true);
+                      setTimeout(()=> {
+                        window.location.reload();
+                      }, 4000)
                     }
                   })
                   .then((res) => console.log(res))
@@ -130,6 +144,26 @@ export const Home = () => {
           </Flex>
         </ModalContent>
       </Modal>
+      {
+        success ? toast({
+          title: 'Success',
+          description: "Your details are saved",
+          position: 'top',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+      }) : <></>
+      }
+      {
+        error ? toast({
+          title: 'Success',
+          description: "Your details are saved",
+          position: 'top',
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+      }) : <></>
+      }
     </>
   );
 };
