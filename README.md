@@ -47,6 +47,12 @@ Start the server
 ```bash
   nodemon index.js
 ```
+## [Deployed Link](https://coinspaze.netlify.app/)
+```bash
+  https://coinspaze.herokuapp.com/
+```
+
+
 ## To verify if your payment details are added to database
 ```bash
   https://coinspaze.herokuapp.com/
