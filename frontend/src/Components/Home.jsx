@@ -22,7 +22,7 @@ export const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const [success, setSuccess] = React.useState(false);
-  const [error,setError] = React.useState(false);
+  const [error, setError] = React.useState(false);
   return (
     <>
       <Flex minWidth='max-content' alignItems='center' justify="center" mt="10%">
@@ -43,8 +43,8 @@ export const Home = () => {
                   description: ""
                 }}
                 onSubmit={(values) => {
-
-                  fetch("http://localhost:3001", {
+                  console.log(values)
+                  fetch("https://coinspaze.herokuapp.com", {
                     method: "POST",
                     body: JSON.stringify(values),
                     headers: {
@@ -95,9 +95,8 @@ export const Home = () => {
                           type="from"
                           variant="filled"
                         >
-                            <option value='option0' defaultValue></option>
-                            <option value='option1' >BTC</option>
-                            <option value='option2' >ETH</option>
+                            <option value='BTC' >BTC</option>
+                            <option value='ETH' >ETH</option>
                         </Field>
                         </FormControl>
                         <FormControl isRequired
