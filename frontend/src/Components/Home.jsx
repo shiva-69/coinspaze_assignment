@@ -21,7 +21,7 @@ export const Home = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      <Button onClick={onOpen}>Make Payment</Button>
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}  scrollBehavior="inside">
         <ModalOverlay />
         
@@ -33,7 +33,8 @@ export const Home = () => {
                 initialValues={{
                   email: "",
                   from: "",
-                  
+                  amount : null,
+                  description: ""
                 }}
                 onSubmit={(values) => {
                   alert(JSON.stringify(values, null, 3));
@@ -62,8 +63,9 @@ export const Home = () => {
                           type="from"
                           variant="filled"
                         >
-                            <option value='option1' default>BTC</option>
-                            <option value='option2'>ETH</option>
+                            <option value='option0' defaultValue></option>
+                            <option value='option1' >BTC</option>
+                            <option value='option2' >ETH</option>
                         </Field>
                         </FormControl>
                         <FormControl isRequired
@@ -99,7 +101,8 @@ export const Home = () => {
                           variant="filled"
                         />
                         </FormControl>
-                      <Button type="submit" colorScheme="purple" width="full">
+                        <Button type="submit" colorScheme="purple" width="full">
+                        {console.log(errors)}
                         Login
                       </Button>
                     </VStack>
