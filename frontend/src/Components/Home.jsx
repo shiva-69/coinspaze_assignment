@@ -33,11 +33,29 @@ export const Home = () => {
                 initialValues={{
                   email: "",
                   from: "",
-                  amount : null,
+                  amount : "",
                   description: ""
                 }}
                 onSubmit={(values) => {
-                  alert(JSON.stringify(values, null, 3));
+                  fetch("http://localhost:3001", {
+                    method: "POST",
+                    body: JSON.stringify(values),
+                    headers: {
+                      "content-type": "application/json"
+                    }
+                  })
+                  .then((res) => {
+                    if(res.status == 200){
+                      res.json()
+                    }
+                    else if(res.status == 401){
+                      window.location.reload();
+                    }
+                    else{
+                      throw Error
+                    }
+                  })
+                  .then((res) => console.log(res))
                 }}
               >
                 {({ handleSubmit, errors, touched }) => (
@@ -102,7 +120,6 @@ export const Home = () => {
                         />
                         </FormControl>
                         <Button type="submit" colorScheme="purple" width="full">
-                        {console.log(errors)}
                         Login
                       </Button>
                     </VStack>

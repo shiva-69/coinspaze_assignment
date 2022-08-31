@@ -12,7 +12,12 @@ const makePayment = async(req, res, next) => {
 const fetchAll = async(req, res, next) => {
     let payments = await Payments.find();
 
-    return res.status(200).send(payments);
+    if(payments){
+        return res.status(200).send(payments);
+    }
+    else{
+        return res.status(401).send("unauthorised")
+    }
 }
 module.exports = {
     makePayment,
