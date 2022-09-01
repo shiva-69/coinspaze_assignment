@@ -95,6 +95,7 @@ export const Home = () => {
                           type="from"
                           variant="filled"
                         >
+                            <option disabled value="">Select an Option</option>
                             <option value='BTC' >BTC</option>
                             <option value='ETH' >ETH</option>
                         </Field>
