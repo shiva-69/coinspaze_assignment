@@ -27,7 +27,7 @@ export const Server = () => {
     const [error, setError] = React.useState(false);
 
     if(loading){
-      return  <Flex align="center" justify="center" mt="200px" ml="20%"> <Spinner thickness='4px'
+      return  <Flex align="center" justify="center" > <Spinner thickness='4px'
       speed='0.65s'
       emptyColor='gray.200'
       color='blue.500'
