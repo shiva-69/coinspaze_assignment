@@ -1,7 +1,7 @@
 import { Home } from "./Components/Home";
 import {Flex} from "@chakra-ui/react";
 import {Unauthorized} from "./Components/Unauthorized"
-import {Bad} from "./Components/Bad Request";
+import {Bad} from "./Components/BadRequest";
 import { Server} from "./Components/Server Error"
 function App() {
   return (
