@@ -35,7 +35,7 @@ export const Server = () => {
     }
 
     return <>
-        <Button colorScheme='teal' onClick={onOpen}>Make Server Error</Button>
+        <Button colorScheme='teal' onClick={onOpen}>Make Payment</Button>
     <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}  scrollBehavior="inside">
     <ModalOverlay />
     
