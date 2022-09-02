@@ -25,9 +25,7 @@ export const Home = () => {
   const [error, setError] = React.useState(false);
   return (
     <>
-      <Flex minWidth='max-content' alignItems='center' justify="center" mt="10%">
-      <Button colorScheme='teal' onClick={onOpen}>Make Payment</Button>
-    </Flex>
+        <Button colorScheme='teal' onClick={onOpen}>Make Payment</Button>
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}  scrollBehavior="inside">
         <ModalOverlay />
         
