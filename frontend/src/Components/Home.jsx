@@ -15,7 +15,7 @@ import {
   ModalContent,
   ModalCloseButton,
   useDisclosure,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 
 export const Home = () => {
@@ -25,49 +25,54 @@ export const Home = () => {
   const [error, setError] = React.useState(false);
   return (
     <>
-        <Button colorScheme='teal' onClick={onOpen}>Make Payment</Button>
-      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}  scrollBehavior="inside">
+      <Button colorScheme="teal" onClick={onOpen}>
+        Make Payment
+      </Button>
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        scrollBehavior="inside"
+      >
         <ModalOverlay />
-        
+
         <ModalContent h="70vh" p="0px">
-        <ModalCloseButton />
-          <Flex bg="gray.100" align="center" justify="center" h="100%" w="100%" >
+          <ModalCloseButton />
+          <Flex bg="gray.100" align="center" justify="center" h="100%" w="100%">
             <Box bg="white" p={6} rounded="md" w={80}>
               <Formik
                 initialValues={{
                   email: "",
                   from: "",
-                  amount : "",
-                  description: ""
+                  amount: "",
+                  description: "",
                 }}
                 onSubmit={(values) => {
-                  console.log(values)
+                  console.log(values);
                   fetch("https://coinspaze.herokuapp.com", {
                     method: "POST",
                     body: JSON.stringify(values),
                     headers: {
-                      "content-type": "application/json"
-                    }
+                      "content-type": "application/json",
+                    },
                   })
-                  .then((res) => {
-                    if(res.status == 200){
-                      setSuccess(true);
-                      setTimeout(()=> {
+                    .then((res) => {
+                      if (res.status == 200) {
+                        setSuccess(true);
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 4000);
+                        res.json();
+                      } else if (res.status == 401) {
                         window.location.reload();
-                      }, 4000)
-                      res.json()
-                    }
-                    else if(res.status == 401){
-                      window.location.reload();
-                    }
-                    else if(res.status == 400){
-                      setError(true);
-                      setTimeout(()=> {
-                        window.location.reload();
-                      }, 4000)
-                    }
-                  })
-                  .then((res) => console.log(res))
+                      } else if (res.status == 400) {
+                        setError(true);
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 4000);
+                      }
+                    })
+                    .then((res) => console.log(res));
                 }}
               >
                 {({ handleSubmit, errors, touched }) => (
@@ -81,10 +86,10 @@ export const Home = () => {
                           name="email"
                           type="email"
                           variant="filled"
-                          placeholder = "Email Address"
+                          placeholder="Email Address"
                         />
                       </FormControl>
-                        <FormControl isRequired>
+                      <FormControl isRequired>
                         <FormLabel htmlFor="from">From</FormLabel>
                         <Field
                           as={Select}
@@ -93,12 +98,15 @@ export const Home = () => {
                           type="from"
                           variant="filled"
                         >
-                            <option disabled value="">Select an Option</option>
-                            <option value='BTC' >BTC</option>
-                            <option value='ETH' >ETH</option>
+                          <option disabled value="">
+                            Select an Option
+                          </option>
+                          <option value="BTC">BTC</option>
+                          <option value="ETH">ETH</option>
                         </Field>
-                        </FormControl>
-                        <FormControl isRequired
+                      </FormControl>
+                      <FormControl
+                        isRequired
                         isInvalid={!!errors.amount && touched.amount}
                       >
                         <FormLabel htmlFor="amount">Amount</FormLabel>
@@ -112,8 +120,7 @@ export const Home = () => {
                             let error;
 
                             if (value < 0) {
-                              error =
-                                "Enter a valid amount";
+                              error = "Enter a valid amount";
                             }
 
                             return error;
@@ -121,7 +128,7 @@ export const Home = () => {
                         />
                         <FormErrorMessage>{errors.amount}</FormErrorMessage>
                       </FormControl>
-                      <FormControl >
+                      <FormControl>
                         <FormLabel htmlFor="description">Description</FormLabel>
                         <Field
                           as={Input}
@@ -130,8 +137,8 @@ export const Home = () => {
                           type="text"
                           variant="filled"
                         />
-                        </FormControl>
-                        <Button type="submit" colorScheme="purple" width="full">
+                      </FormControl>
+                      <Button type="submit" colorScheme="purple" width="full">
                         Login
                       </Button>
                     </VStack>
@@ -142,26 +149,30 @@ export const Home = () => {
           </Flex>
         </ModalContent>
       </Modal>
-      {
-        success ? toast({
-          title: 'Success',
+      {success ? (
+        toast({
+          title: "Success",
           description: "Your details are saved",
-          position: 'top',
-          status: 'success',
+          position: "top",
+          status: "success",
           duration: 4000,
           isClosable: true,
-      }) : <></>
-      }
-      {
-        error ? toast({
-          title: 'Success',
-          description: "Your details are saved",
-          position: 'top',
-          status: 'success',
+        })
+      ) : (
+        <></>
+      )}
+      {error ? (
+        toast({
+          title: "Error in submitting form",
+          description: "Please check your details",
+          position: "top",
+          status: "error",
           duration: 4000,
           isClosable: true,
-      }) : <></>
-      }
+        })
+      ) : (
+        <></>
+      )}
     </>
   );
 };
